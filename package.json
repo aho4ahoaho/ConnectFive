@@ -1,0 +1,19 @@
+{
+  "name": "connect_five",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "scripts": {
+    "client": "bun --cwd packages/five_client"
+
+  }
+}
