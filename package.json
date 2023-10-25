@@ -13,7 +13,7 @@
   ],
   "private": true,
   "scripts": {
-    "client": "bun --cwd packages/five_client"
-
+    "client": "bun --cwd packages/five_client",
+    "server": "bun --cwd packages/five_server"
   }
 }
