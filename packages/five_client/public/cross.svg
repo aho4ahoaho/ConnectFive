@@ -1,0 +1,9 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景の正方形 -->
+
+    <!-- 十字の縦線 -->
+    <rect x="95" y="0" width="10" height="200" fill="black"/>
+
+    <!-- 十字の横線 -->
+    <rect x="0" y="95" width="200" height="10" fill="black"/>
+</svg>

@@ -1,0 +1,17 @@
+div.black {
+    background-color: black;
+    border-radius: 50%;
+    height: 64px;
+    width: 64px;
+}
+div.white {
+    background-color: white;
+    border-radius: 50%;
+    height: 64px;
+    width: 64px;
+    border: 1px solid black;
+}
+div.empty {
+    height: 64px;
+    width: 64px;
+}
