@@ -47,7 +47,6 @@ export default function Home() {
         setSocket(socket);
         socket.onmessage = event => {
             const data = JSON.parse(event.data);
-            console.log(data);
             switch (data.message) {
                 case 'gameStart':
                     setStatus('game');
@@ -68,7 +67,6 @@ export default function Home() {
             }
         };
         socket.onclose = () => {
-            console.log('Socket closed');
             setStatus('menu');
         };
     };
