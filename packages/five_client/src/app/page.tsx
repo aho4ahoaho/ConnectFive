@@ -17,7 +17,7 @@ type Status = 'menu' | 'waiting' | 'game' | 'gameEnd';
 
 export default function Home() {
     const [board, setBoard] = React.useState<GoStoneType[][]>([]);
-    const [status, setStatus] = React.useState<Status>('waiting');
+    const [status, setStatus] = React.useState<Status>('menu');
     const [gameOptions, setGameOptions] = React.useState<GameOptions>({
         username: '',
         password: randomString(12),
