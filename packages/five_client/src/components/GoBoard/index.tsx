@@ -9,6 +9,7 @@ export type GoBoardProps = {
     className?: string;
     board: GoStoneType[][];
     onClick?: (col: number, row: number) => void;
+    noActive?: boolean;
 };
 
 export const GoBoard = ({ className, board, onClick }: GoBoardProps) => {
@@ -23,7 +24,7 @@ export const GoBoard = ({ className, board, onClick }: GoBoardProps) => {
     React.useEffect(() => {
         const width = window.innerWidth;
         const height = window.innerHeight;
-        const size = Math.floor(Math.min(width, height) / BoardSize);
+        const size = Math.floor((Math.min(width, height) * 0.8) / BoardSize);
         setSize(size);
     }, [BoardSize]);
 
@@ -65,6 +66,7 @@ const GoLine = ({
                         size={size}
                         stoneType={stoneType}
                         onClick={() => {
+                            console.log(i);
                             onClick(i);
                         }}
                     />

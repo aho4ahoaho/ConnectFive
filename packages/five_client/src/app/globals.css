@@ -1,4 +1,20 @@
 :root {
     --go-borad-color: #f2b06d;
     --go-grid-hover-color: #8b4513;
+    --border: 0.1rem solid #666;
+    --border-radius: 0.5rem;
+    --background-color: #fafafa;
+    --primary-color: #99d5c9;
+    --secondary-color: #6c969d;
+    --tertiary-color: #645e9d;
+    --dark-color: #392b58;
+    --dark-secondary-color: #2d0320;
+}
+
+body {
+    margin: 0;
+}
+
+* {
+    color: #222;
 }
