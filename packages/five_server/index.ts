@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  const name = String(req.query.name);
+  const name = String(req.query.name ?? "");
   if (name === "") {
     res.status(400).send("Name is required");
     return;
@@ -41,8 +41,8 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/session", (req, res) => {
-  const id = String(req.query.id);
-  const password = String(req.query.password);
+  const id = String(req.query.id ?? "");
+  const password = String(req.query.password ?? "");
 
   if (id === "" || password === "") {
     res.status(400).send("id and password are required");
@@ -80,8 +80,8 @@ app.get("/session", (req, res) => {
 });
 
 app.ws("/game", (ws, req) => {
-  const id = String(req.query.id);
-  const password = String(req.query.password);
+  const id = String(req.query.id ?? "");
+  const password = String(req.query.password ?? "");
 
   if (id === "" || password === "") {
     ws.send("id and password are required");
