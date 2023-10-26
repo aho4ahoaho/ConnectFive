@@ -38,43 +38,53 @@ export class Game {
   }
 
   checkWinner() {
-    for (let y = 2; y < this.board.length - 2; y++) {
-      for (let x = 2; x < this.board.length - 2; x++) {
+    for (let y = 0; y < this.board.length; y++) {
+      for (let x = 0; x < this.board.length; x++) {
         if (this.board[y][x] === "empty") continue;
         //縦
         if (
+          y - 2 >= 0 &&
+          y + 2 < this.board.length &&
           this.board[y][x] === this.board[y - 1][x] &&
           this.board[y][x] === this.board[y - 2][x] &&
           this.board[y][x] === this.board[y + 1][x] &&
           this.board[y][x] === this.board[y + 2][x]
         ) {
+          this.status = "finished";
           return this.board[y][x];
-        }
-        //横
-        if (
+        } else if (
+          x - 2 >= 0 &&
+          x + 2 < this.board.length &&
           this.board[y][x] === this.board[y][x - 1] &&
           this.board[y][x] === this.board[y][x - 2] &&
           this.board[y][x] === this.board[y][x + 1] &&
           this.board[y][x] === this.board[y][x + 2]
         ) {
+          this.status = "finished";
           return this.board[y][x];
-        }
-        //斜め
-        if (
-          this.board[y][x] === this.board[y - 1][x - 1] &&
-          this.board[y][x] === this.board[y - 2][x - 2] &&
-          this.board[y][x] === this.board[y + 1][x + 1] &&
-          this.board[y][x] === this.board[y + 2][x + 2]
+        } else if (
+          y - 2 >= 0 &&
+          y + 2 < this.board.length &&
+          x - 2 >= 0 &&
+          x + 2 < this.board.length
         ) {
-          return this.board[y][x];
-        }
-        if (
-          this.board[y][x] === this.board[y - 1][x + 1] &&
-          this.board[y][x] === this.board[y - 2][x + 2] &&
-          this.board[y][x] === this.board[y + 1][x - 1] &&
-          this.board[y][x] === this.board[y + 2][x - 2]
-        ) {
-          return this.board[y][x];
+          if (
+            this.board[y][x] === this.board[y - 1][x - 1] &&
+            this.board[y][x] === this.board[y - 2][x - 2] &&
+            this.board[y][x] === this.board[y + 1][x + 1] &&
+            this.board[y][x] === this.board[y + 2][x + 2]
+          ) {
+            this.status = "finished";
+            return this.board[y][x];
+          } else if (
+            this.board[y][x] === this.board[y - 1][x + 1] &&
+            this.board[y][x] === this.board[y - 2][x + 2] &&
+            this.board[y][x] === this.board[y + 1][x - 1] &&
+            this.board[y][x] === this.board[y + 2][x - 2]
+          ) {
+            this.status = "finished";
+            return this.board[y][x];
+          }
         }
       }
     }
