@@ -24,23 +24,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/debug/clear", (req, res) => {
-  console.log("clear");
-  Players.forEach((p) => {
-    p.ws?.close();
-  });
-  Players.splice(0, Players.length);
-  Games.splice(0, Games.length);
-  res.send("clear");
-});
-
-app.get("/debug/info", (req, res) => {
-  res.send({
-    players: Players.length,
-    games: Games.length,
-  });
-});
-
 app.get("/register", (req, res) => {
   const name = String(req.query.name);
   if (name === "") {

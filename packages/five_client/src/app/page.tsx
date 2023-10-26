@@ -12,16 +12,14 @@ import {
 } from '@/utils/api';
 import { ResultScreen } from '@/components/ResultScreen';
 
-const BoardSize = 13;
-
 type Status = 'menu' | 'waiting' | 'game' | 'gameEnd';
 
 export default function Home() {
     const [board, setBoard] = React.useState<GoStoneType[][]>([]);
     const [status, setStatus] = React.useState<Status>('gameEnd');
     const [gameOptions, setGameOptions] = React.useState<GameOptions>({
-        username: 'testName',
-        password: 'testSession',
+        username: '',
+        password: '',
     });
     const [userdata, setUserdata] = React.useState<PlayerData>();
     const [session, setSession] = React.useState<SessionData>();
