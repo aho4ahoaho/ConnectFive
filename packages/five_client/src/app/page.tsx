@@ -18,7 +18,7 @@ type Status = 'menu' | 'waiting' | 'game' | 'gameEnd';
 
 export default function Home() {
     const [board, setBoard] = React.useState<GoStoneType[][]>([]);
-    const [status, setStatus] = React.useState<Status>('menu');
+    const [status, setStatus] = React.useState<Status>('gameEnd');
     const [gameOptions, setGameOptions] = React.useState<GameOptions>({
         username: 'testName',
         password: 'testSession',
@@ -32,8 +32,11 @@ export default function Home() {
 
     const onGameJoin = async () => {
         const { username, password } = gameOptions;
+        if (username === '' || password === '') return;
+
         const userdata = await UsernameRegister(username);
         setUserdata(userdata);
+
         const session = await SessionRegister(userdata.id, password);
         setSession(session);
 
@@ -50,7 +53,7 @@ export default function Home() {
                 case 'gameStart':
                     setStatus('game');
                     setBoard(data.board);
-                    setMyColor(data.myColor);
+                    setMyColor(data.yourColor);
                     setOpponentName(data.opponentName);
                     break;
                 case 'waiting':
@@ -60,8 +63,8 @@ export default function Home() {
                     setBoard(data.board);
                     break;
                 case 'gameEnd':
-                    setStatus('gameEnd');
                     setWinner(data.winner);
+                    setStatus('gameEnd');
                     break;
             }
         };
@@ -79,8 +82,6 @@ export default function Home() {
         };
         socket?.send(JSON.stringify(res));
     };
-
-    console.log(winner, myColor);
 
     return (
         <main>
@@ -104,6 +105,10 @@ export default function Home() {
                     winner_name={
                         winner === myColor ? userdata?.username : opponentName
                     }
+                    onBackToMenu={() => {
+                        socket?.close();
+                        setStatus('menu');
+                    }}
                 />
             )}
         </main>
