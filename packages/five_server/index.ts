@@ -125,7 +125,7 @@ app.ws("/game", (ws, req) => {
           ...res,
           yourColor: "black",
           opponentName: game.player2.username,
-        }),
+        })
       );
     }
   }
@@ -146,14 +146,14 @@ app.ws("/game", (ws, req) => {
         ...res,
         yourColor: "white",
         opponentName: game.player1.username,
-      }),
+      })
     );
     player.opponent?.ws?.send(
       JSON.stringify({
         ...res,
         yourColor: "black",
         opponentName: game.player2.username,
-      }),
+      })
     );
   }
 
@@ -198,6 +198,6 @@ app.ws("/game", (ws, req) => {
   });
 });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}!`);
 });
