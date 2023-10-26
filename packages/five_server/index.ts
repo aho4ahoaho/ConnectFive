@@ -24,6 +24,13 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/info", (req, res) => {
+  res.send({
+    players: Players.length,
+    games: Games.length,
+  });
+});
+
 app.get("/register", (req, res) => {
   const name = String(req.query.name ?? "");
   if (name === "") {
