@@ -4,7 +4,6 @@ import { Player } from "./src/player";
 import crypto from "crypto";
 import { Game, GoStoneType } from "./src/game";
 import { WebSocketMessage, WebSocketMessageResponse } from "./src/util";
-import e from "express";
 
 const PORT = process.env.PORT || 3001;
 const OriginApp = Express();
@@ -132,7 +131,7 @@ app.ws("/game", (ws, req) => {
     game.player1.opponent = game.player2;
 
     turn = "white";
-    let res = {
+    const res = {
       status: "ok",
       message: "gameStart",
       turn: game.turn,
@@ -143,22 +142,22 @@ app.ws("/game", (ws, req) => {
         ...res,
         yourColor: "white",
         opponentName: game.player1.username,
-      })
+      }),
     );
     player.opponent?.ws?.send(
       JSON.stringify({
         ...res,
         yourColor: "black",
         opponentName: game.player2.username,
-      })
+      }),
     );
   }
 
-  ws.on("message", (msg: any) => {
+  ws.on("message", (msg: string) => {
     const data = JSON.parse(String(msg)) as WebSocketMessage;
     console.log(turn, data);
     switch (data.action) {
-      case "putStone":
+      case "putStone": {
         const s = game.putStone(data.x, data.y, turn);
         const res: WebSocketMessageResponse = {
           status: s ? "ok" : "error",
@@ -181,6 +180,7 @@ app.ws("/game", (ws, req) => {
           player.opponent?.ws?.send(JSON.stringify(res));
           break;
         }
+      }
     }
   });
 });

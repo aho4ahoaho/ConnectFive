@@ -15,6 +15,7 @@
   "scripts": {
     "client": "bun --cwd packages/five_client",
     "server": "bun --cwd packages/five_server",
-    "fmt": "bun client fmt && bun server fmt"
+    "fmt": "bun client fmt && bun server fmt",
+    "lint": "bun client lint && bun server lint"
   }
 }
