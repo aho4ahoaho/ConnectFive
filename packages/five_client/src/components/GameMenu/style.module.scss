@@ -41,22 +41,26 @@ div.wrapper {
     }
 }
 
-div.progress{
+div.progress {
     width: 60%;
     height: 0.5rem;
     background-color: var(--primary-color);
     animation: progressBar 5s linear infinite;
-    background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(
+        to left,
+        var(--primary-color),
+        var(--secondary-color)
+    );
     border-radius: var(--border-radius);
 }
-@keyframes progressBar{
-    from{
+@keyframes progressBar {
+    from {
         width: 0%;
     }
-    50%{
+    50% {
         width: 60%;
     }
-    to{
+    to {
         width: 0%;
     }
 }
