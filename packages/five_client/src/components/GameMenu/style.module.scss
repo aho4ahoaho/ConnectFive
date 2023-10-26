@@ -41,7 +41,19 @@ div.wrapper {
     }
 }
 
+div.waitingScreen{
+    .title{
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    .pass{
+        font-weight: 500;
+    }
+}
+
 div.progress {
+    margin-top: 1rem;
+
     width: 60%;
     height: 0.5rem;
     background-color: var(--primary-color);

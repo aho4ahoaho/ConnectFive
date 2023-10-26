@@ -11,15 +11,16 @@ import {
     WS_HOST,
 } from '@/utils/api';
 import { ResultScreen } from '@/components/ResultScreen';
+import { randomString } from '@/utils/random';
 
 type Status = 'menu' | 'waiting' | 'game' | 'gameEnd';
 
 export default function Home() {
     const [board, setBoard] = React.useState<GoStoneType[][]>([]);
-    const [status, setStatus] = React.useState<Status>('gameEnd');
+    const [status, setStatus] = React.useState<Status>('waiting');
     const [gameOptions, setGameOptions] = React.useState<GameOptions>({
         username: '',
-        password: '',
+        password: randomString(12),
     });
     const [userdata, setUserdata] = React.useState<PlayerData>();
     const [session, setSession] = React.useState<SessionData>();
@@ -92,7 +93,9 @@ export default function Home() {
                     />
                 </>
             )}
-            {status === 'waiting' && <WaitingScreen />}
+            {status === 'waiting' && (
+                <WaitingScreen password={gameOptions.password} />
+            )}
             {status === 'game' && (
                 <GoBoard board={board} onClick={onBoardClick} />
             )}

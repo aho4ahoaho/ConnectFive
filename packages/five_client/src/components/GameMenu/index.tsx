@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './style.module.scss';
+import { concatClassNames } from '@/utils/class';
 
 type Status = 'menu' | 'game' | 'gameover';
 export type GameOptions = {
@@ -66,10 +67,11 @@ export const GameMenu = ({
     );
 };
 
-export const WaitingScreen = () => {
+export const WaitingScreen = ({ password }: { password?: string }) => {
     return (
-        <div className={style.wrapper}>
-            <div>対戦相手を待っています</div>
+        <div className={concatClassNames(style.wrapper, style.waitingScreen)}>
+            <div className={style.title}>対戦相手を待っています</div>
+            <div className={style.pass}>合言葉: {password}</div>
             <div className={style.progress}></div>
         </div>
     );
