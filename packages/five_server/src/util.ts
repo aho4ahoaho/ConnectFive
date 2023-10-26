@@ -1,14 +1,10 @@
 import { GoStoneType } from "./game";
 
-export type WebSocketMessage =
-  | {
-      action: "putStone";
-      x: number;
-      y: number;
-    }
-  | {
-      action: "gameStart";
-    };
+export type WebSocketMessage = {
+  action: "putStone";
+  x: number;
+  y: number;
+};
 
 export type WebSocketMessageResponse =
   | {
