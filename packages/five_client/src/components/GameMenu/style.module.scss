@@ -5,7 +5,7 @@ div.wrapper {
     flex-direction: column;
     align-items: center;
     width: 300px;
-    font-size: larger;
+    font-size: 1.25rem;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
     border: var(--border);
@@ -29,13 +29,38 @@ div.wrapper {
             width: 100%;
 
             &.text {
+                border: var(--border);
+                border-radius: 0.25rem;
+                padding: 0.25rem;
             }
+
+            &.disabled {
+                color: gray;
+                background-color: lightgray;
+            }
+
             &.button {
                 background-color: var(--primary-color);
                 margin-top: 0.5rem;
                 border: var(--border);
                 border-radius: var(--border-radius);
                 padding: 0.5rem;
+            }
+
+            &[type='checkbox'] {
+                width: auto;
+            }
+        }
+        label {
+            width: 100%;
+            user-select: none;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
+            div {
+                line-height: 1;
+                padding-top: 0.6rem;
             }
         }
     }

@@ -11,7 +11,6 @@ import {
     WS_HOST,
 } from '@/utils/api';
 import { ResultScreen } from '@/components/ResultScreen';
-import { randomString } from '@/utils/random';
 
 type Status = 'menu' | 'waiting' | 'game' | 'gameEnd';
 
@@ -20,7 +19,7 @@ export default function Home() {
     const [status, setStatus] = React.useState<Status>('menu');
     const [gameOptions, setGameOptions] = React.useState<GameOptions>({
         username: '',
-        password: randomString(12),
+        password: '',
     });
     const [userdata, setUserdata] = React.useState<PlayerData>();
     const [session, setSession] = React.useState<SessionData>();

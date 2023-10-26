@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './style.module.scss';
 import { concatClassNames } from '@/utils/class';
+import { randomString } from '@/utils/random';
 
 type Status = 'menu' | 'game' | 'gameover';
 export type GameOptions = {
@@ -18,6 +19,7 @@ export const GameMenu = ({
     gameOptions,
     setGameOptions,
 }: GameMenuProps) => {
+    const [isRandom, setIsRandom] = React.useState<boolean>(false);
     return (
         <div className={style.wrapper}>
             <div className={style.title}>五目並べ</div>
@@ -49,7 +51,10 @@ export const GameMenu = ({
                 />
                 <p>合言葉</p>
                 <input
-                    className={style.text}
+                    className={concatClassNames(
+                        style.text,
+                        isRandom && style.disabled
+                    )}
                     type="text"
                     value={gameOptions.password}
                     onChange={e => {
@@ -59,7 +64,23 @@ export const GameMenu = ({
                         });
                     }}
                     placeholder="Password"
+                    disabled={isRandom}
                 />
+                <label>
+                    <input
+                        type="checkbox"
+                        onChange={e => {
+                            setIsRandom(e.target.checked);
+                            if (e.target.checked) {
+                                setGameOptions({
+                                    ...gameOptions,
+                                    password: randomString(12),
+                                });
+                            }
+                        }}
+                    />
+                    <div>合言葉をランダムに決める</div>
+                </label>
 
                 <input type="submit" className={style.button} value="Join" />
             </form>
