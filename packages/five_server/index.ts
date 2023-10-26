@@ -34,6 +34,13 @@ app.get("/debug/clear", (req, res) => {
   res.send("clear");
 });
 
+app.get("/debug/info", (req, res) => {
+  res.send({
+    players: Players.length,
+    games: Games.length,
+  });
+});
+
 app.get("/register", (req, res) => {
   const name = String(req.query.name);
   if (name === "") {
@@ -123,6 +130,20 @@ app.ws("/game", (ws, req) => {
         message: "waiting",
       };
       ws.send(JSON.stringify(res));
+    } else {
+      const res = {
+        status: "ok",
+        message: "gameStart",
+        turn: game.turn,
+        board: game.board,
+      };
+      ws.send(
+        JSON.stringify({
+          ...res,
+          yourColor: "black",
+          opponentName: game.player2.username,
+        })
+      );
     }
   }
   if (game.player2?.id === player.id) {
@@ -142,20 +163,19 @@ app.ws("/game", (ws, req) => {
         ...res,
         yourColor: "white",
         opponentName: game.player1.username,
-      }),
+      })
     );
     player.opponent?.ws?.send(
       JSON.stringify({
         ...res,
         yourColor: "black",
         opponentName: game.player2.username,
-      }),
+      })
     );
   }
 
   ws.on("message", (msg: string) => {
     const data = JSON.parse(String(msg)) as WebSocketMessage;
-    console.log(turn, data);
     switch (data.action) {
       case "putStone": {
         const s = game.putStone(data.x, data.y, turn);
@@ -168,7 +188,6 @@ app.ws("/game", (ws, req) => {
         ws.send(JSON.stringify(res));
         player.opponent?.ws?.send(JSON.stringify(res));
         const winner = game.checkWinner();
-        console.log(winner);
         if (winner) {
           const res: WebSocketMessageResponse = {
             status: "ok",
@@ -181,6 +200,17 @@ app.ws("/game", (ws, req) => {
           break;
         }
       }
+    }
+  });
+
+  ws.on("close", () => {
+    if (game.status === "finished") {
+      let index = Games.indexOf(game);
+      index !== -1 && Games.splice(index, 1);
+      index = Players.indexOf(player);
+      index !== -1 && Players.splice(index, 1);
+    } else {
+      player.ws = undefined;
     }
   });
 });
