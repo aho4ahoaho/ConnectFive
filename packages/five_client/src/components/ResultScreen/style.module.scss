@@ -23,3 +23,12 @@ div.winner {
         color: white;
     }
 }
+
+input.button {
+    background-color: var(--primary-color);
+    margin-top: 0.5rem;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    font-size: 1.25rem;
+}

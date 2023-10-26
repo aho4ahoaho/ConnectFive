@@ -1,11 +1,11 @@
 .header {
     position: sticky;
     background-color: var(--primary-color);
-    height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     .title {
-        font-size: 3rem;
+        line-height: 1;
+        padding-top: 0.6em;
     }
 }
