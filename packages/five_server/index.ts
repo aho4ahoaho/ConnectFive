@@ -17,8 +17,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const Players: Player[] = [];
-const Games: Game[] = [];
+let Players: Player[] = [];
+let Games: Game[] = [];
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -28,6 +28,27 @@ app.get("/info", (req, res) => {
   res.send({
     players: Players.length,
     games: Games.length,
+  });
+});
+
+app.get("/clean", (req, res) => {
+  if (req.query.password !== "clean") {
+    res.status(400).send("password is wrong");
+    return;
+  }
+  const beforeData = {
+    players: Players.length,
+    games: Games.length,
+  };
+  Players = Players.filter((p) => p.ws != null);
+  Games = Games.filter((g) => g.status !== "finished");
+  Games = Games.filter((g) => g.player1.ws != null);
+  res.send({
+    before: beforeData,
+    after: {
+      players: Players.length,
+      games: Games.length,
+    },
   });
 });
 
@@ -132,7 +153,7 @@ app.ws("/game", (ws, req) => {
           ...res,
           yourColor: "black",
           opponentName: game.player2.username,
-        }),
+        })
       );
     }
   }
@@ -153,14 +174,14 @@ app.ws("/game", (ws, req) => {
         ...res,
         yourColor: "white",
         opponentName: game.player1.username,
-      }),
+      })
     );
     player.opponent?.ws?.send(
       JSON.stringify({
         ...res,
         yourColor: "black",
         opponentName: game.player2.username,
-      }),
+      })
     );
   }
 
