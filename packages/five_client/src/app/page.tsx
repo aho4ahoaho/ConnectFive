@@ -11,6 +11,7 @@ import {
     WS_HOST,
 } from '@/utils/api';
 import { ResultScreen } from '@/components/ResultScreen';
+import { GoInfo } from '@/components/GoInfo';
 
 type Status = 'menu' | 'waiting' | 'game' | 'gameEnd';
 
@@ -27,6 +28,7 @@ export default function Home() {
     const [winner, setWinner] = React.useState<GoStoneType>();
     const [myColor, setMyColor] = React.useState<GoStoneType>('empty');
     const [opponentName, setOpponentName] = React.useState<string>('');
+    const [turn, setTurn] = React.useState<GoStoneType>('black');
 
     const onGameJoin = async () => {
         const { username, password } = gameOptions;
@@ -58,6 +60,7 @@ export default function Home() {
                     break;
                 case 'putStone':
                     setBoard(data.board);
+                    setTurn(data.turn);
                     break;
                 case 'gameEnd':
                     setWinner(data.winner);
@@ -94,7 +97,14 @@ export default function Home() {
                 <WaitingScreen password={gameOptions.password} />
             )}
             {status === 'game' && (
-                <GoBoard board={board} onClick={onBoardClick} />
+                <>
+                    <GoInfo
+                        myColor={myColor}
+                        opponentName={opponentName}
+                        turn={turn}
+                    />
+                    <GoBoard board={board} onClick={onBoardClick} />
+                </>
             )}
             {status === 'gameEnd' && (
                 <ResultScreen
