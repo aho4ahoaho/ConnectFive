@@ -1,5 +1,6 @@
-export const HOST = 'http://localhost:3001/';
-export const WS_HOST = 'ws://localhost:3001/';
+export const HOST = process.env.NEXT_PUBLIC_HOST ?? 'http://localhost:3001/';
+export const WS_HOST =
+    process.env.NEXT_PUBLIC_WS_HOST ?? 'ws://localhost:3001/';
 
 export const UsernameRegister = async (username: string) => {
     const data = (await fetch(HOST + 'register?name=' + username).then(res =>
