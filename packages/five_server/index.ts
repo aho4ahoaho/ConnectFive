@@ -132,7 +132,7 @@ app.ws("/game", (ws, req) => {
           ...res,
           yourColor: "black",
           opponentName: game.player2.username,
-        })
+        }),
       );
     }
   }
@@ -153,14 +153,14 @@ app.ws("/game", (ws, req) => {
         ...res,
         yourColor: "white",
         opponentName: game.player1.username,
-      })
+      }),
     );
     player.opponent?.ws?.send(
       JSON.stringify({
         ...res,
         yourColor: "black",
         opponentName: game.player2.username,
-      })
+      }),
     );
   }
 
